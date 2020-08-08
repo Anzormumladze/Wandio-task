@@ -34,7 +34,3 @@ export function gamesReducer(state = initialState, action) {
     }
   }
 }
-
-// export const getProducts = (state) => state.products;
-// export const getProductsPending = (state) => state.pending;
-// export const getProductsError = (state) => state.error;
