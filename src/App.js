@@ -1,11 +1,6 @@
 import React from "react";
+import Home from "./components/home";
 
-const App = () => {
-  return (
-    <div className="App">
-      <h1>Wandio</h1>
-    </div>
-  );
-};
-
-export default App;
+export default function App() {
+  return <Home />;
+}
