@@ -15,27 +15,36 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleTable({ gamesData, history, gameDetails }) {
+export default function SimpleTable({
+  gamesData,
+  history,
+  gameDetails,
+  teamDetails,
+}) {
   const classes = useStyles();
-  const data = gameDetails ? null : gamesData.slice(0, 10);
-
+  const data = gameDetails ? null : teamDetails ? null : gamesData.slice(0, 10);
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell style={{ fontSize: 20, fontWeight: "bold" }}>
-              Home Team Name
+              {teamDetails ? "Full Name" : "Home Team Name"}
             </TableCell>
             <TableCell style={{ fontSize: 20, fontWeight: "bold" }}>
-              Visitor Team name
+              {teamDetails ? "Abbreviation" : "Visitor Team name"}
             </TableCell>
             <TableCell style={{ fontSize: 20, fontWeight: "bold" }}>
-              Game score
+              {teamDetails ? "City" : "Game score"}
             </TableCell>
             {gameDetails ? (
               <TableCell style={{ fontSize: 20, fontWeight: "bold" }}>
                 Season/Status
+              </TableCell>
+            ) : null}
+            {teamDetails ? (
+              <TableCell style={{ fontSize: 20, fontWeight: "bold" }}>
+                division
               </TableCell>
             ) : null}
           </TableRow>
@@ -50,13 +59,34 @@ export default function SimpleTable({ gamesData, history, gameDetails }) {
               <TableCell>{`${gameDetails.team.home_team_score} - ${gameDetails.team.visitor_team_score}`}</TableCell>
               <TableCell>{`${gameDetails.team.season} / ${gameDetails.team.status}`}</TableCell>
             </TableRow>
+          ) : teamDetails ? (
+            <TableRow key={teamDetails.id}>
+              <TableCell component="th" scope="row">
+                {teamDetails.full_name}
+              </TableCell>
+              <TableCell>{teamDetails.abbreviation}</TableCell>
+              <TableCell>{teamDetails.city}</TableCell>
+              <TableCell>{teamDetails.division}</TableCell>
+            </TableRow>
           ) : (
             data.map((team) => (
               <TableRow key={team.id}>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  onClick={() =>
+                    history.push("/TeamDetails", { state: { team }, team: 1 })
+                  }
+                >
                   {team.home_team.full_name}
                 </TableCell>
-                <TableCell>{team.visitor_team.full_name}</TableCell>
+                <TableCell
+                  onClick={() =>
+                    history.push("/TeamDetails", { state: { team }, team: 2 })
+                  }
+                >
+                  {team.visitor_team.full_name}
+                </TableCell>
                 <TableCell
                   onClick={() => history.push("/GameDetails", { team })}
                 >{`${team.home_team_score} - ${team.visitor_team_score}`}</TableCell>
