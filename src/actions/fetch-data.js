@@ -7,7 +7,6 @@ export const getGamesDashboard = (data) => async (dispatch) => {
   dispatch(gamesDataRequest());
   try {
     const responseData = await fetchGameData(data);
-    console.log(responseData, "00011");
 
     dispatch(gamesDataSuccess(responseData));
   } catch (e) {
