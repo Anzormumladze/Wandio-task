@@ -7,12 +7,10 @@ const TeamDetails = ({ history }) => {
   const {
     location: { state },
   } = history;
-  console.log(state, "vnaxot");
   let changeableData;
   state.team === 1
     ? (changeableData = state.state.team.home_team)
     : (changeableData = state.state.team.visitor_team);
-  console.log(changeableData, "---__---");
   return (
     <div>
       <AppBar page={"Team Details"} homePage={true} history={history} />

@@ -5,7 +5,6 @@ const responseLogger = (res, url) => {
 };
 
 const _fetch = (url) => {
-  // requestLogger(body, token, url);
   const root = GET_ROOT();
   console.log(root);
 
@@ -28,9 +27,6 @@ const _fetch = (url) => {
     .catch((err) => {
       console
         .log("errr2", err)
-
-        // // .clone()
-        // .text()
         .then((errrrrr2) => console.log("errrrrr2", errrrrr2));
     });
 };
