@@ -1,6 +1,7 @@
 import React from "react";
 import AppBar from "../components/appBar";
 import Table from "../components/table";
+import PropTypes from "prop-types";
 
 const TeamDetails = ({ history }) => {
   const {
@@ -20,6 +21,10 @@ const TeamDetails = ({ history }) => {
       </div>
     </div>
   );
+};
+
+TeamDetails.propTypes = {
+  history: PropTypes.object,
 };
 
 export default TeamDetails;

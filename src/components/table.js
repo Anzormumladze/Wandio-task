@@ -103,4 +103,5 @@ SimpleTable.propTypes = {
   gamesData: PropTypes.array,
   history: PropTypes.object,
   gameDetails: PropTypes.object,
+  teamDetails: PropTypes.object,
 };
