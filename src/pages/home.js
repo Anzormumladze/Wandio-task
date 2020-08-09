@@ -5,7 +5,7 @@ import AppBar from "../components/appBar";
 import Table from "../components/table";
 import PropTypes from "prop-types";
 
-export const Home = ({ GetGames, gamesData }) => {
+export const Home = ({ GetGames, gamesData, history }) => {
   const { data } = gamesData;
   useEffect(() => {
     GetGames();
@@ -19,7 +19,7 @@ export const Home = ({ GetGames, gamesData }) => {
         <AppBar page={"Home"} />
       </div>
       <div style={{ marginTop: 50 }}>
-        <Table gamesData={data} />
+        <Table gamesData={data} history={history} />
       </div>
     </div>
   );
@@ -39,6 +39,7 @@ const mapDispacthToProps = (dispatch) => {
 Home.propTypes = {
   GetGames: PropTypes.func,
   gamesData: PropTypes.object,
+  history: PropTypes.object,
 };
 
 export default connect(mapStateToProps, mapDispacthToProps)(Home);

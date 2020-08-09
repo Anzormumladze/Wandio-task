@@ -15,9 +15,9 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleTable({ gamesData }) {
+export default function SimpleTable({ gamesData, history, gameDetails }) {
   const classes = useStyles();
-  const data = gamesData.slice(0, 10);
+  const data = gameDetails ? null : gamesData.slice(0, 10);
 
   return (
     <TableContainer component={Paper}>
@@ -33,18 +33,36 @@ export default function SimpleTable({ gamesData }) {
             <TableCell style={{ fontSize: 20, fontWeight: "bold" }}>
               Game score
             </TableCell>
+            {gameDetails ? (
+              <TableCell style={{ fontSize: 20, fontWeight: "bold" }}>
+                Season/Status
+              </TableCell>
+            ) : null}
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((team) => (
-            <TableRow key={team.id}>
+          {gameDetails ? (
+            <TableRow key={gameDetails.team.id}>
               <TableCell component="th" scope="row">
-                {team.home_team.full_name}
+                {gameDetails.team.home_team.full_name}
               </TableCell>
-              <TableCell>{team.visitor_team.full_name}</TableCell>
-              <TableCell>{`${team.home_team_score} - ${team.visitor_team_score}`}</TableCell>
+              <TableCell>{gameDetails.team.visitor_team.full_name}</TableCell>
+              <TableCell>{`${gameDetails.team.home_team_score} - ${gameDetails.team.visitor_team_score}`}</TableCell>
+              <TableCell>{`${gameDetails.team.season} / ${gameDetails.team.status}`}</TableCell>
             </TableRow>
-          ))}
+          ) : (
+            data.map((team) => (
+              <TableRow key={team.id}>
+                <TableCell component="th" scope="row">
+                  {team.home_team.full_name}
+                </TableCell>
+                <TableCell>{team.visitor_team.full_name}</TableCell>
+                <TableCell
+                  onClick={() => history.push("/GameDetails", { team })}
+                >{`${team.home_team_score} - ${team.visitor_team_score}`}</TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </TableContainer>
@@ -53,4 +71,6 @@ export default function SimpleTable({ gamesData }) {
 
 SimpleTable.propTypes = {
   gamesData: PropTypes.array,
+  history: PropTypes.object,
+  gameDetails: PropTypes.object,
 };

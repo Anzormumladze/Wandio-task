@@ -13,9 +13,13 @@ const useStyles = makeStyles(() => ({
   title: {
     flexGrow: 1,
   },
+  homePage: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
 }));
 
-export default function ButtonAppBar({ page }) {
+export default function ButtonAppBar({ page, homePage, history }) {
   const classes = useStyles();
   return (
     <AppBar position="static">
@@ -29,6 +33,15 @@ export default function ButtonAppBar({ page }) {
         <Typography variant="h6" className={classes.title}>
           {page}
         </Typography>
+        {homePage ? (
+          <Typography
+            variant="h6"
+            className={classes.homePage}
+            onClick={() => history.push("/")}
+          >
+            Home
+          </Typography>
+        ) : null}
       </Toolbar>
     </AppBar>
   );
@@ -36,4 +49,6 @@ export default function ButtonAppBar({ page }) {
 
 ButtonAppBar.propTypes = {
   page: PropTypes.string,
+  homePage: PropTypes.bool,
+  history: PropTypes.object,
 };
