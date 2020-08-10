@@ -23,12 +23,12 @@ export default function SimpleTable({
 }) {
   const classes = useStyles();
   const data = gameDetails
-    ? null
+    ? []
     : teamDetails
-    ? null
+    ? []
     : gamesData
     ? gamesData.slice(0, 10)
-    : null;
+    : [];
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="a dense table">
@@ -75,6 +75,7 @@ export default function SimpleTable({
               <TableCell>{teamDetails.division}</TableCell>
             </TableRow>
           ) : (
+            data &&
             data.map((team) => (
               <TableRow key={team.id}>
                 <TableCell
