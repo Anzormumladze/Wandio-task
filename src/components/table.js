@@ -22,7 +22,13 @@ export default function SimpleTable({
   teamDetails,
 }) {
   const classes = useStyles();
-  const data = gameDetails ? null : teamDetails ? null : gamesData.slice(0, 10);
+  const data = gameDetails
+    ? null
+    : teamDetails
+    ? null
+    : gamesData
+    ? gamesData.slice(0, 10)
+    : null;
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="a dense table">
